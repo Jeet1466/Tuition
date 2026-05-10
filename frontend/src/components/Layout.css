@@ -197,6 +197,15 @@
   .navbar-toggle { display: flex; }
 }
 
+@media (max-width: 480px) {
+  .navbar { padding: 0 16px; }
+  .navbar-inner { height: 64px; }
+  .navbar-logo-icon { width: 34px; height: 34px; font-size: 14px; }
+  .navbar-logo-title { font-size: 14px; }
+  .navbar-logo-sub { font-size: 8px; }
+  .footer { padding: var(--space-8) 0 var(--space-4); }
+}
+
 /* =============================================
    FOOTER STYLES
    ============================================= */

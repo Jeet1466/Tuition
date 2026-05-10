@@ -288,16 +288,17 @@
 
 @media (max-width: 768px) {
   .page-hero { padding: 100px 0 60px; }
-  .page-hero-title { font-size: 32px; }
-  .page-hero-desc { font-size: 15px; }
+  .page-hero-title { font-size: 28px; line-height: 1.2; }
+  .page-hero-desc { font-size: 15px; margin-bottom: 24px; }
   .batch-details { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
-  .page-hero-title { font-size: 26px; }
+  .page-hero-title { font-size: 24px; }
+  .page-hero-desc { font-size: 14px; }
   .subject-card-top { padding: 20px 20px 0; }
   .subject-card-body { padding: 16px 20px 20px; }
-  .batch-card { padding: 20px; }
+  .batch-card { padding: 16px; }
   .sidebar-card { padding: 20px; }
   .sidebar-fee-amount { font-size: 28px; }
 }

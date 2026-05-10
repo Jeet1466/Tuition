@@ -249,6 +249,8 @@ button { cursor: pointer; font-family: inherit; }
 @media (max-width: 640px) {
   .grid-4, .grid-3, .grid-2 { grid-template-columns: 1fr; }
   .container { padding: 0 16px; }
+  .btn { white-space: normal; text-align: center; justify-content: center; padding: 12px 20px; }
+  .btn-lg { padding: 14px 24px; font-size: 14px; }
 }
 
 /* ---- Progress Bar ---- */
