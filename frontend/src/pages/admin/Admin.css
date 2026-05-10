@@ -581,16 +581,36 @@ textarea.admin-form-input { resize: vertical; min-height: 80px; }
   .admin-mobile-toggle { display: flex; }
   .admin-content { padding: 20px 16px; }
 }
+@media (max-width: 768px) {
+  .admin-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .admin-filter-bar, .admin-search-input {
+    width: 100%;
+  }
+  .admin-split-layout.with-panel {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .admin-topbar-time {
+    display: none;
+  }
+}
 @media (max-width: 640px) {
   .admin-stats-grid { grid-template-columns: 1fr 1fr; }
   .admin-form-grid { grid-template-columns: 1fr; }
   .admin-modal { padding: 24px; }
   .admin-login-card { padding: 32px 24px; }
+  .admin-pagination { flex-direction: column; text-align: center; gap: 12px; }
+  .admin-pagination-btns { justify-content: center; }
 }
 @media (max-width: 480px) {
   .admin-stats-grid { grid-template-columns: 1fr; }
-  .admin-table { font-size: 12px; }
-  .admin-table th, .admin-table td { padding: 10px 10px; }
+  .admin-table { font-size: 12px; min-width: 600px; }
+  .admin-table th, .admin-table td { padding: 10px 8px; }
+  .admin-topbar { padding: 0 16px; }
+  .admin-stat-card { padding: 16px; }
 }
 
 /* ── Sidebar overlay for mobile ── */
