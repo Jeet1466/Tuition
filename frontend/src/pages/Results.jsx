@@ -111,7 +111,7 @@ export default function Results() {
       {/* Subject-wise Results */}
       <section className="section section-bg">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+          <div className="grid-2" style={{ gap: 64, alignItems: 'start' }}>
             <div>
               <span className="section-label">Subject Analysis</span>
               <h2 className="headline-lg section-title">Average Scores by Subject</h2>

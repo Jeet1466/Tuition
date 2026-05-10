@@ -95,7 +95,7 @@ export default function About() {
       {/* Results Banner */}
       <section className="results-banner" style={{ background: 'linear-gradient(135deg, #000f30 0%, #00235a 100%)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32 }}>
+          <div className="grid-4">
             {[
               { val: '2000+', label: 'Students Enrolled' },
               { val: '25+', label: 'Expert Faculty' },
@@ -147,7 +147,7 @@ export default function About() {
       {/* Timeline */}
       <section className="section section-bg">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
+          <div className="grid-2" style={{ gap: 80, alignItems: 'start' }}>
             <div>
               <span className="section-label">Our Story</span>
               <h2 className="headline-lg section-title">A Journey of Growth</h2>

@@ -47,7 +47,7 @@ export default function Contact() {
 
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 48, alignItems: 'start' }}>
+          <div className="enroll-layout">
             {/* Form */}
             <div className="enroll-form-card">
               {!submitted ? (
