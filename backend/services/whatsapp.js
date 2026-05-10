@@ -8,6 +8,7 @@ const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
         headless: true,
+        executablePath: process.env.NODE_ENV === 'production' ? '/usr/bin/google-chrome-stable' : undefined,
         args: [
             '--no-sandbox', 
             '--disable-setuid-sandbox', 
