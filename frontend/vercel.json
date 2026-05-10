@@ -2,7 +2,7 @@
     "rewrites": [
         {
             "source": "/api/:match*",
-            "destination": "https://tuition-backend-5g41.onrender.com/api/:match*"
+            "destination": "https://tuition-backend-5g4l.onrender.com/api/:match*"
         }
     ]
 }
