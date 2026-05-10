@@ -25,6 +25,13 @@ client.on('qr', (qr) => {
     console.log('📱 SCAN THIS QR CODE IN WHATSAPP TO LINK YOUR SERVER');
     console.log('======================================================\n');
     qrcode.generate(qr, { small: true });
+
+    // Fallback for cloud logs where terminal QR codes get mangled
+    console.log('\n======================================================');
+    console.log('⚠️ IF THE QR CODE ABOVE IS BROKEN OR SCRAMBLED:');
+    console.log('Click this link to view a clean version in your browser:');
+    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qr)}`);
+    console.log('======================================================\n');
 });
 
 client.on('ready', () => {
