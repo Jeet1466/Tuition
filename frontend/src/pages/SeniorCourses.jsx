@@ -82,7 +82,7 @@ export default function SeniorCourses() {
             {/* Left */}
             <div>
               {/* Stream Tabs */}
-              <div style={{ display: 'flex', gap: 12, marginBottom: 36 }}>
+              <div style={{ display: 'flex', gap: 12, marginBottom: 36, flexWrap: 'wrap' }}>
                 {streams.map((s, i) => (
                   <button
                     key={i}

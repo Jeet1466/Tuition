@@ -186,8 +186,22 @@
 @media (max-width: 1024px) {
   .enroll-layout { grid-template-columns: 1fr; }
 }
+
+@media (max-width: 768px) {
+  .enroll-layout { padding: var(--space-6) 0; gap: 32px; }
+  .enroll-form-card { padding: 32px; }
+}
+
 @media (max-width: 640px) {
   .enroll-form-card { padding: 24px; }
   .form-row { grid-template-columns: 1fr; }
   .course-select-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .enroll-form-card { padding: 20px; border-radius: var(--radius-lg); }
+  .enroll-form-title { font-size: 22px; }
+  .enroll-form-sub { font-size: 13px; margin-bottom: 24px; }
+  .form-divider { font-size: 11px; margin: 20px 0 16px; }
+  .form-submit { margin-top: 24px; }
 }
