@@ -190,12 +190,12 @@
 @media (max-width: 768px) {
   .enroll-layout { padding: var(--space-6) 0; gap: 32px; }
   .enroll-form-card { padding: 32px; }
+  .form-row { grid-template-columns: 1fr; }
+  .course-select-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 640px) {
   .enroll-form-card { padding: 24px; }
-  .form-row { grid-template-columns: 1fr; }
-  .course-select-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
