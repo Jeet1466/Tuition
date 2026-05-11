@@ -16,7 +16,7 @@ const client = new Client({
         dataPath: authPath
     }),
     puppeteer: {
-        headless: true,
+        headless: 'shell',
         // Detect if we are on Render or in Production
         executablePath: (process.env.NODE_ENV === 'production' || process.env.RENDER)
             ? (process.env.CHROME_PATH || '/usr/bin/google-chrome-stable') 
@@ -32,7 +32,8 @@ const client = new Client({
             '--hide-scrollbars',
             '--disable-notifications',
             '--disable-extensions',
-            '--single-process'
+            '--single-process',
+            '--disable-software-rasterizer'
         ]
     }
 });
