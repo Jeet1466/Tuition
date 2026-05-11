@@ -16,7 +16,7 @@ const client = new Client({
         dataPath: authPath
     }),
     puppeteer: {
-        headless: 'shell',
+        headless: true,
         // Detect if we are on Render or in Production
         executablePath: (process.env.NODE_ENV === 'production' || process.env.RENDER)
             ? (process.env.CHROME_PATH || '/usr/bin/google-chrome-stable') 
@@ -97,7 +97,7 @@ setTimeout(() => {
         console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client:', err.message);
         console.log('Check if Chrome/Chromium is installed and the executablePath is correct.');
     });
-}, 5000); // 5 second delay
+}, 15000); // 15 second delay
 
 const sendWhatsAppMessage = async (to, message) => {
   if (!clientReady) {
