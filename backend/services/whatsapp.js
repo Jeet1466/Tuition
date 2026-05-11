@@ -97,7 +97,7 @@ setTimeout(() => {
         console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client:', err.message);
         console.log('Check if Chrome/Chromium is installed and the executablePath is correct.');
     });
-}, 15000); // 15 second delay
+}, 60000); // 60 second delay
 
 const sendWhatsAppMessage = async (to, message) => {
   if (!clientReady) {
