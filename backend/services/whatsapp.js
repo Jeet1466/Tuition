@@ -82,12 +82,16 @@ client.on('disconnected', (reason) => {
 
 // Start the client with error handling
 console.log('⏳ Initializing WhatsApp client...');
-client.initialize().catch(err => {
+console.log(`   Mode: ${process.env.NODE_ENV || 'development'}`);
+if (process.env.NODE_ENV === 'production') {
+    console.log(`   Chrome Path: ${process.env.CHROME_PATH || '/usr/bin/google-chrome-stable'}`);
+}
+
+client.initialize().then(() => {
+    console.log('🏁 client.initialize() call completed (awaiting ready event)');
+}).catch(err => {
     console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client:', err.message);
     console.log('Check if Chrome/Chromium is installed and the executablePath is correct.');
-    if (process.env.NODE_ENV === 'production') {
-        console.log(`Current production path: ${process.env.CHROME_PATH || '/usr/bin/google-chrome-stable'}`);
-    }
 });
 
 const sendWhatsAppMessage = async (to, message) => {
