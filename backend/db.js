@@ -2,7 +2,8 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const bcrypt = require('bcryptjs');
 
-const DB_PATH = path.join(__dirname, 'data.db');
+const PERSISTENT_DIR = process.env.PERSISTENT_STORAGE_DIR || __dirname;
+const DB_PATH = path.join(PERSISTENT_DIR, 'data.db');
 const db = new Database(DB_PATH);
 
 // Enable WAL mode for better performance

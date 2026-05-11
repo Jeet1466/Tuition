@@ -1,14 +1,26 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
+const path = require('path');
 
 let clientReady = false;
+let lastQr = null;
+let connectionStatus = 'initializing'; // initializing, waiting_for_qr, connecting, ready, disconnected
+
+// Use a persistent path for authentication if provided (useful for Render/Docker)
+const PERSISTENT_DIR = process.env.PERSISTENT_STORAGE_DIR || '.';
+const authPath = path.join(PERSISTENT_DIR, '.wwebjs_auth');
 
 // Initialize WhatsApp Client
 const client = new Client({
-    authStrategy: new LocalAuth(),
+    authStrategy: new LocalAuth({
+        dataPath: authPath
+    }),
     puppeteer: {
         headless: true,
-        executablePath: process.env.NODE_ENV === 'production' ? '/usr/bin/google-chrome-stable' : undefined,
+        // Common paths for Chrome/Chromium in various environments
+        executablePath: process.env.NODE_ENV === 'production' 
+            ? (process.env.CHROME_PATH || '/usr/bin/google-chrome-stable') 
+            : undefined,
         args: [
             '--no-sandbox', 
             '--disable-setuid-sandbox', 
@@ -16,12 +28,17 @@ const client = new Client({
             '--disable-accelerated-2d-canvas',
             '--no-first-run',
             '--no-zygote',
-            '--disable-gpu'
+            '--disable-gpu',
+            '--hide-scrollbars',
+            '--disable-notifications',
+            '--disable-extensions'
         ]
     }
 });
 
 client.on('qr', (qr) => {
+    lastQr = qr;
+    connectionStatus = 'waiting_for_qr';
     console.log('\n======================================================');
     console.log('📱 SCAN THIS QR CODE IN WHATSAPP TO LINK YOUR SERVER');
     console.log('======================================================\n');
@@ -35,19 +52,42 @@ client.on('qr', (qr) => {
     console.log('======================================================\n');
 });
 
+client.on('loading_screen', (percent, message) => {
+    connectionStatus = 'connecting';
+    console.log(`⏳ Loading WhatsApp: ${percent}% - ${message}`);
+});
+
 client.on('ready', () => {
     clientReady = true;
+    lastQr = null;
+    connectionStatus = 'ready';
     console.log('✅ WhatsApp Web Client is successfully connected and ready to send messages!');
+});
+
+client.on('authenticated', () => {
+    connectionStatus = 'connecting';
+    console.log('✅ WhatsApp Authenticated!');
+});
+
+client.on('auth_failure', msg => {
+    connectionStatus = 'disconnected';
+    console.error('❌ WhatsApp Authentication failure:', msg);
 });
 
 client.on('disconnected', (reason) => {
     clientReady = false;
+    connectionStatus = 'disconnected';
     console.log('❌ WhatsApp Web Client disconnected:', reason);
 });
 
 // Start the client with error handling
+console.log('⏳ Initializing WhatsApp client...');
 client.initialize().catch(err => {
-    console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client. Please restart the server or delete .wwebjs_auth folder if it persists.', err.message);
+    console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client:', err.message);
+    console.log('Check if Chrome/Chromium is installed and the executablePath is correct.');
+    if (process.env.NODE_ENV === 'production') {
+        console.log(`Current production path: ${process.env.CHROME_PATH || '/usr/bin/google-chrome-stable'}`);
+    }
 });
 
 const sendWhatsAppMessage = async (to, message) => {
@@ -98,9 +138,16 @@ const sendPaymentConfirmationToAdmin = async (paymentDetails) => {
   await sendWhatsAppMessage(adminPhone, msg);
 };
 
+const getStatus = () => ({
+  ready: clientReady,
+  status: connectionStatus,
+  qrLink: lastQr ? `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(lastQr)}` : null
+});
+
 module.exports = {
   sendEnrollmentAdminAlert,
   sendEnrollmentUserAck,
   sendFeeReminder,
-  sendPaymentConfirmationToAdmin
+  sendPaymentConfirmationToAdmin,
+  getStatus
 };

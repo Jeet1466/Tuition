@@ -20,8 +20,9 @@ app.use('/api/batches',      require('./routes/batches'));
 app.use('/api/contacts',     require('./routes/contacts'));
 app.use('/api/stats',        require('./routes/stats'));
 
-// ─── Health Check ─────────────────────────────────────────────────────────────
+// ─── Health & Status ──────────────────────────────────────────────────────────
 app.get('/api/health', (_, res) => res.json({ status: 'OK', timestamp: new Date().toISOString() }));
+app.get('/api/whatsapp/status', (req, res) => res.json(waService.getStatus()));
 
 // ─── Global Error Handler ─────────────────────────────────────────────────────
 app.use((err, req, res, next) => {
