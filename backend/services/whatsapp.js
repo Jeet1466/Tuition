@@ -31,7 +31,8 @@ const client = new Client({
             '--disable-gpu',
             '--hide-scrollbars',
             '--disable-notifications',
-            '--disable-extensions'
+            '--disable-extensions',
+            '--single-process'
         ]
     }
 });
