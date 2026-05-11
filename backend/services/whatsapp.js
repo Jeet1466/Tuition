@@ -17,8 +17,8 @@ const client = new Client({
     }),
     puppeteer: {
         headless: true,
-        // Common paths for Chrome/Chromium in various environments
-        executablePath: process.env.NODE_ENV === 'production' 
+        // Detect if we are on Render or in Production
+        executablePath: (process.env.NODE_ENV === 'production' || process.env.RENDER)
             ? (process.env.CHROME_PATH || '/usr/bin/google-chrome-stable') 
             : undefined,
         args: [
@@ -83,7 +83,8 @@ client.on('disconnected', (reason) => {
 // Start the client with error handling
 console.log('⏳ Initializing WhatsApp client...');
 console.log(`   Mode: ${process.env.NODE_ENV || 'development'}`);
-if (process.env.NODE_ENV === 'production') {
+console.log(`   Render Detected: ${process.env.RENDER ? 'Yes' : 'No'}`);
+if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
     console.log(`   Chrome Path: ${process.env.CHROME_PATH || '/usr/bin/google-chrome-stable'}`);
 }
 
