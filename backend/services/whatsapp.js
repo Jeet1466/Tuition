@@ -81,20 +81,22 @@ client.on('disconnected', (reason) => {
     console.log('❌ WhatsApp Web Client disconnected:', reason);
 });
 
-// Start the client with error handling
-console.log('⏳ Initializing WhatsApp client...');
-console.log(`   Mode: ${process.env.NODE_ENV || 'development'}`);
-console.log(`   Render Detected: ${process.env.RENDER ? 'Yes' : 'No'}`);
-if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
-    console.log(`   Chrome Path: ${process.env.CHROME_PATH || '/usr/bin/google-chrome-stable'}`);
-}
+// Start the client with a small delay to ensure the environment is ready
+setTimeout(() => {
+    console.log('⏳ Initializing WhatsApp client...');
+    console.log(`   Mode: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`   Render Detected: ${process.env.RENDER ? 'Yes' : 'No'}`);
+    if (process.env.NODE_ENV === 'production' || process.env.RENDER) {
+        console.log(`   Chrome Path: ${process.env.CHROME_PATH || '/usr/bin/google-chrome-stable'}`);
+    }
 
-client.initialize().then(() => {
-    console.log('🏁 client.initialize() call completed (awaiting ready event)');
-}).catch(err => {
-    console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client:', err.message);
-    console.log('Check if Chrome/Chromium is installed and the executablePath is correct.');
-});
+    client.initialize().then(() => {
+        console.log('🏁 client.initialize() call completed (awaiting ready event)');
+    }).catch(err => {
+        console.error('🔴 [WHATSAPP FATAL ERROR] Failed to initialize client:', err.message);
+        console.log('Check if Chrome/Chromium is installed and the executablePath is correct.');
+    });
+}, 5000); // 5 second delay
 
 const sendWhatsAppMessage = async (to, message) => {
   if (!clientReady) {

@@ -30,17 +30,8 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: 'Internal server error' });
 });
 
-// ─── Production Static Serving ────────────────────────────────────────────────
-const path = require('path');
-if (process.env.NODE_ENV === 'production') {
-  // Serve the static files from the React app
-  app.use(express.static(path.join(__dirname, '../frontend/dist')));
-
-  // Handles any requests that don't match the API
-  app.get(/(.*)/, (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-  });
-}
+// Static serving is handled by Vercel for the frontend.
+// The backend only needs to serve the API.
 
 // ─── Automatic Fee Reminders ───────────────────────────────────────────────────
 const waService = require('./services/whatsapp');
